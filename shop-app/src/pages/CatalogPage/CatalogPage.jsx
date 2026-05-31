@@ -19,9 +19,18 @@ function CatalogPage(){
     }
     function addToCart(product){
         const cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        const foundProduct=cart.find(item)=>
-            item.id===product.id
-
+        const foundProduct=cart.find((item)=>
+            item.id===product.id)
+        if(foundProduct){
+            foundProduct.count+=1;
+        }
+        else{
+            cart.push({
+                ...product,count:1,
+            });
+        }
+        localStorage.setItem("cart",JSON.stringify(cart));
+        alert("Товар добавлен в корзину")
     }
     return(
         <div className={styles.container}>
@@ -29,6 +38,7 @@ function CatalogPage(){
                 <h1>Каталог товаров</h1>
                 <div>
                     <span>{user?.name}</span>
+                    <button onClick={()=>navigate("/cart")}>Корзина</button>
                     <button onClick={logout}>Выйти</button>
                 </div>
             </div>
@@ -42,7 +52,7 @@ function CatalogPage(){
                         <p>
                             {product.price}
                         </p>
-                        <button>Добавить в корзину</button>
+                        <button onClick={()=>addToCart(product)}>Добавить в корзину</button>
                     </div>
                 ))}
             </div>
