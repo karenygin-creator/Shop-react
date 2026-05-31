@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CatalogPage from './pages/CatalogPage/CatalogPage'
+import CartPage from './pages/CartPage/CartPage'
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
       element={<LoginPage/>}/>
       <Route path='/catalog'
       element={<CatalogPage/>}/>
-
+      <Route path='/cart'
+      element={<CartPage/>}/>
    </Routes>
   )
 }
