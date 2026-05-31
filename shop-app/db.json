@@ -5,7 +5,50 @@
       "email": "Test@mail.ru",
       "password": "Test",
       "id": "plGcXB8anIk"
+    },
+    {
+      "name": "dsfdsf",
+      "email": "dsfsdfsd",
+      "password": "sdfsdfsdfsd",
+      "id": "bZw5p9FuYv4"
+    },
+    {
+      "name": "test",
+      "email": "test",
+      "password": "test",
+      "id": "g7wDClCfJ0E"
+    }
+  ],
+  "products":[
+    {
+      "id":"1",
+      "title":"Avto",
+      "price":100000,
+      "image":"/images/1-1.jpg"
+
+    },
+    {
+      "id":"2",
+      "title":"Avto1",
+      "price":105000,
+      "image":"/images/2-1.jpg"
+
+    },
+    {
+      "id":"3",
+      "title":"Avto2",
+      "price":200000,
+      "image":"/images/3-1.jpg"
+
+    },
+    {
+      "id":"4",
+      "title":"Avto3",
+      "price":2000000,
+      "image":"/images/4-1.jpg"
+
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
+
 }
