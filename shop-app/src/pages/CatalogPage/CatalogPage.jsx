@@ -5,19 +5,33 @@ import { getProducts } from "../../api/productsApi";
 function CatalogPage(){
     const navigate=useNavigate();
     const[products,setProducts]=useState([]);
+    const[cartCount,setCartCount]=useState(0);
     const user=JSON.parse(localStorage.getItem("user"));
+
     useEffect(()=>{
         async function loadProducts(){
             const data=await getProducts();
             setProducts(data);
         }
         loadProducts();
+        updateCartCount();
     },[])
+    function updateCartCount(){
+        const cart=JSON.parse(localStorage.getItem("cart"))|| [];
+        const count=cart.reduce((sum,item)=>sum+item.count,0);
+        setCartCount(count);
+    }
     function logout(){
         localStorage.removeItem("user");
         navigate("/login");
     }
     function addToCart(product){
+        const user=localStorage.getItem("user");
+        if(!user){
+            alert("Чтобы добавить товар в корзину нужно войти")
+            navigate("/login");
+            return;
+        }
         const cart=JSON.parse(localStorage.getItem("cart"))|| [];
         const foundProduct=cart.find((item)=>
             item.id===product.id)
@@ -31,6 +45,7 @@ function CatalogPage(){
         }
         localStorage.setItem("cart",JSON.stringify(cart));
         alert("Товар добавлен в корзину")
+        updateCartCount();
     }
     return(
         <div className={styles.container}>
@@ -38,7 +53,7 @@ function CatalogPage(){
                 <h1>Каталог товаров</h1>
                 <div>
                     <span>{user?.name}</span>
-                    <button onClick={()=>navigate("/cart")}>Корзина</button>
+                    <button onClick={()=>navigate("/cart")}>Корзина ({cartCount})</button>
                     <button onClick={logout}>Выйти</button>
                 </div>
             </div>
