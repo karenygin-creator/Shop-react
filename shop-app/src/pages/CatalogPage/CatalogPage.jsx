@@ -5,7 +5,9 @@ import { getProducts } from "../../api/productsApi";
 function CatalogPage(){
     const navigate=useNavigate();
     const[products,setProducts]=useState([]);
-    // const[cartCount,setCartCount]=useState(0);
+    const[cartCount,setCartCount]=useState(0);
+   
+
     
 
     useEffect(()=>{
@@ -17,9 +19,9 @@ function CatalogPage(){
         updateCartCount();
     },[])
     function updateCartCount(){
-        // const cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        // const count=cart.reduce((sum,item)=>sum+item.count,0);
-        // setCartCount(count);
+        const cart=JSON.parse(localStorage.getItem("cart"))|| [];
+        const count=cart.reduce((sum,item)=>sum+item.count,0);
+        setCartCount(count);
     }
     
     function addToCart(product){
@@ -56,7 +58,8 @@ function CatalogPage(){
             </div> */}
             <div className={styles.products}>
                 {products.map((product)=>(
-                    <div className={styles.card} key={product.id}>
+                    <div className={styles.card} key={product.id}
+                    onClick={()=>navigate(`/product/${product.id}`)}>
                         <img src={product.image} alt={product.title}/>
                         <h3>
                             {product.title}
@@ -64,7 +67,10 @@ function CatalogPage(){
                         <p>
                             {product.price}
                         </p>
-                        <button onClick={()=>addToCart(product)}>Добавить в корзину</button>
+                        <button onClick={(event)=>{
+                            event.stopPropagation();
+                            addToCart(product);
+                        }}>Добавить в корзину</button>
                     </div>
                 ))}
             </div>

@@ -6,6 +6,7 @@ import CatalogPage from './pages/CatalogPage/CatalogPage'
 import CartPage from './pages/CartPage/CartPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header/Header'
+import ProductPage from './pages/ProductPage/ProductPage'
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
       <CatalogPage/>
      
       }/>
+      <Route path='/product/:id'
+      element={<ProductPage/>}/>
       <Route path='/cart'
       element={
         <ProtectedRoute>
