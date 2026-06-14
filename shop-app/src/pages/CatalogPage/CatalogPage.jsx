@@ -5,8 +5,8 @@ import { getProducts } from "../../api/productsApi";
 function CatalogPage(){
     const navigate=useNavigate();
     const[products,setProducts]=useState([]);
-    const[cartCount,setCartCount]=useState(0);
-    const user=JSON.parse(localStorage.getItem("user"));
+    // const[cartCount,setCartCount]=useState(0);
+    
 
     useEffect(()=>{
         async function loadProducts(){
@@ -17,14 +17,11 @@ function CatalogPage(){
         updateCartCount();
     },[])
     function updateCartCount(){
-        const cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        const count=cart.reduce((sum,item)=>sum+item.count,0);
-        setCartCount(count);
+        // const cart=JSON.parse(localStorage.getItem("cart"))|| [];
+        // const count=cart.reduce((sum,item)=>sum+item.count,0);
+        // setCartCount(count);
     }
-    function logout(){
-        localStorage.removeItem("user");
-        navigate("/login");
-    }
+    
     function addToCart(product){
         const user=localStorage.getItem("user");
         if(!user){
@@ -49,14 +46,14 @@ function CatalogPage(){
     }
     return(
         <div className={styles.container}>
-            <div className={styles.header}>
+            {/* <div className={styles.header}>
                 <h1>Каталог товаров</h1>
                 <div>
                     <span>{user?.name}</span>
                     <button onClick={()=>navigate("/cart")}>Корзина ({cartCount})</button>
                     <button onClick={logout}>Выйти</button>
                 </div>
-            </div>
+            </div> */}
             <div className={styles.products}>
                 {products.map((product)=>(
                     <div className={styles.card} key={product.id}>

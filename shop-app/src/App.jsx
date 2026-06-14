@@ -5,11 +5,14 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import CatalogPage from './pages/CatalogPage/CatalogPage'
 import CartPage from './pages/CartPage/CartPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import Header from './components/Header/Header'
 
 
 function App() {
  
   return (
+    <>
+    <Header/>
    <Routes>
       <Route path='/register'
       element={<RegisterPage/>}/>
@@ -28,6 +31,7 @@ function App() {
       </ProtectedRoute>
       }/>
    </Routes>
+   </>
   )
 }
 
