@@ -9,15 +9,21 @@ function ProductPage(){
     console.log(id);
     
     const[product,setProduct]=useState(null);
+    const[activeImage,setActiveImage]=useState("");
+    const[selectedColor,setSelectedColor]=useState(null);
     useEffect(()=>{
             async function loadProducts(){
                 const data=await getProductById(id);
                 setProduct(data);
+                setActiveImage(data.images?.[0]||data.image)
             }
             loadProducts();
             
         },[id])
-        
+        function choseeColor(color){
+            setSelectedColor(color);
+            setActiveImage(color.image);
+        }
         function addToCart(){
             const user=localStorage.getItem("user");
             if(!user){
@@ -45,16 +51,15 @@ function ProductPage(){
         }
     return(
         <div className={styles.container}>
-          <div className={styles.header}>
             <button className={styles.backButton} onClick={() => navigate("/catalog")}>
               ← Назад в каталог
             </button>
-          </div>
+            <h1 className={styles.title}>{product.title}</h1>
     
           <div className={styles.product}>
             <div className={styles.left}>
-              <h1>{product.title}</h1>
-              <img src={product.image} alt={product.title} />
+             
+              <img className={styles.mainImage} src={activeImage} alt={product.title}/>
             </div>
     
             <div className={styles.right}>

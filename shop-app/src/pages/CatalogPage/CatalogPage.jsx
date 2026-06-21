@@ -6,22 +6,21 @@ import { getProducts } from "../../api/productsApi";
 function CatalogPage(){
     const navigate=useNavigate();
     const[products,setProducts]=useState([]);
-    const[cartCount,setCartCount]=useState(0);
+    const[selectedCategory,setSelectedCategory]=useState("Все");
+    const categories=["Все",...new Set(products.map(product=>product.category))];
+    const filterProduct=selectedCategory==="Все"?
+    products:
+    products.filter(product=>product.category===selectedCategory);
    
-
     useEffect(()=>{
         async function loadProducts(){
             const data=await getProducts();
             setProducts(data);
         }
         loadProducts();
-        updateCartCount();
+        
     },[])
-    function updateCartCount(){
-        const cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        const count=cart.reduce((sum,item)=>sum+item.count,0);
-        setCartCount(count);
-    }
+    
     
     function addToCart(product){
         const user=localStorage.getItem("user");
@@ -43,13 +42,23 @@ function CatalogPage(){
         }
         localStorage.setItem("cart",JSON.stringify(cart));
         alert("Товар добавлен в корзину")
-        updateCartCount();
+       
     }
     return(
        
         <div className={styles.container}>
+            <h1 className={styles.title}>Каталог товаров</h1>
+            <div className={styles.content}>
+                <aside className={styles.sidebar}>
+                        <h3>Категории</h3>
+                        {categories.map((category)=>(
+                            <button 
+                            key={category}
+                            onClick={()=>setSelectedCategory(category)}>{category}</button>
+                        ))}
+                </aside>
             <div className={styles.products}>
-                {products.map((product)=>(
+                {filterProduct.map((product)=>(
                     <div className={styles.card} key={product.id}
                     onClick={()=>navigate(`/product/${product.id}`)}>
                         <img src={product.image} alt={product.title}/>
@@ -65,6 +74,7 @@ function CatalogPage(){
                         }}>Добавить в корзину</button>
                     </div>
                 ))}
+            </div>
             </div>
         </div>
        
