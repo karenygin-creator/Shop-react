@@ -2,6 +2,7 @@ import { useState ,useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductById } from "../../api/productsApi";
 import styles from "./Product.module.css"
+
 function ProductPage(){
     const navigate=useNavigate();
     const {id}=useParams();
@@ -44,22 +45,29 @@ function ProductPage(){
         }
     return(
         <div className={styles.container}>
-            <button onClick={()=>navigate("/catalog")}>Назад</button>
-            <div className={styles.product}>
-                <img src={product.image} alt={product.title}/>
-                <div>
-                    <h1>{product.title}</h1>
-                    <p className={styles.price}>{product.price} rub</p>
-                    <p>
-                        Осталось: {product.stock} шт.
-                    </p>
-                    <p>
-                        {product.description}
-                    </p>
-                    <button onClick={addToCart}>Добавить в корзину</button>
-                </div>
+          <div className={styles.header}>
+            <button className={styles.backButton} onClick={() => navigate("/catalog")}>
+              ← Назад в каталог
+            </button>
+          </div>
+    
+          <div className={styles.product}>
+            <div className={styles.left}>
+              <h1>{product.title}</h1>
+              <img src={product.image} alt={product.title} />
             </div>
+    
+            <div className={styles.right}>
+              <p className={styles.cost}>{product.price}$</p>
+              <p className={styles.description}>{product.description}</p>
+              <p className={styles.stock}>Осталось: {product.stock} шт.</p>
+          
+              <button className={styles.add} onClick={addToCart}>
+                ДОБАВИТЬ В КОРЗИНУ
+              </button>
+            </div>
+          </div>
         </div>
-    )
+      )
 }
 export default ProductPage;

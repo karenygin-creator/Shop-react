@@ -1,5 +1,7 @@
 .container {
-    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 24px;
 }
 .header{
     display: flex;
@@ -14,7 +16,7 @@
 }
 .products{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
     gap: 25px;
 }
 .card{

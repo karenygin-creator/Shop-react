@@ -2,13 +2,12 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CatalogPage.module.css"
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/productsApi";
+
 function CatalogPage(){
     const navigate=useNavigate();
     const[products,setProducts]=useState([]);
     const[cartCount,setCartCount]=useState(0);
    
-
-    
 
     useEffect(()=>{
         async function loadProducts(){
@@ -47,15 +46,8 @@ function CatalogPage(){
         updateCartCount();
     }
     return(
+       
         <div className={styles.container}>
-            {/* <div className={styles.header}>
-                <h1>Каталог товаров</h1>
-                <div>
-                    <span>{user?.name}</span>
-                    <button onClick={()=>navigate("/cart")}>Корзина ({cartCount})</button>
-                    <button onClick={logout}>Выйти</button>
-                </div>
-            </div> */}
             <div className={styles.products}>
                 {products.map((product)=>(
                     <div className={styles.card} key={product.id}
@@ -75,6 +67,7 @@ function CatalogPage(){
                 ))}
             </div>
         </div>
+       
     )
 }
 export default CatalogPage;

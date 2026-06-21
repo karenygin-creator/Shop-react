@@ -1,6 +1,7 @@
 import { useNavigate} from "react-router-dom";
 import {useState } from "react";
 import styles from "./CartPage.module.css"
+
 function CartPage(){
     const navigate=useNavigate();
     const[cart,setCart]=useState(JSON.parse(localStorage.getItem("cart"))||[]);
@@ -45,7 +46,7 @@ function CartPage(){
     }
     const totalPrice=cart.reduce((sum,item)=>sum+item.price*item.count,0);
     return(
-        
+       
         <div className={styles.container}>
             <h1>Корзина</h1>
             <button onClick={()=>navigate("/catalog")}>Назад в каталог</button>

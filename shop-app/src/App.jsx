@@ -7,13 +7,15 @@ import CartPage from './pages/CartPage/CartPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header/Header'
 import ProductPage from './pages/ProductPage/ProductPage'
+import FooterPage from './components/FooterPage/FooterPage'
 
 
 function App() {
  
   return (
-    <>
+  <div className='app'>
     <Header/>
+    <main className='main'>
    <Routes>
       <Route path='/register'
       element={<RegisterPage/>}/>
@@ -34,7 +36,9 @@ function App() {
       </ProtectedRoute>
       }/>
    </Routes>
-   </>
+   </main>
+   <FooterPage/>
+   </div>
   )
 }
 
