@@ -99,10 +99,11 @@ function ProductPage(){
 
     
             <div className={styles.right}>
+              
+              <p className={styles.description}>{product.description}</p>
               <p className={styles.price}>
                 {product.price} $
               </p>
-              <p className={styles.description}>{product.description}</p>
               <p className={styles.stock}>Осталось: {product.stock} шт.</p>
           
               <button className={styles.add} onClick={addToCart}>
@@ -120,6 +121,7 @@ function ProductPage(){
                     ))}
                   </div>
               </div>
+
               <div className={styles.info}>
                     <h2>Характеристики</h2>
                     <p>{product.characteristics}</p>
