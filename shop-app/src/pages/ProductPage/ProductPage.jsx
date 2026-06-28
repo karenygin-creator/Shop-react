@@ -32,17 +32,43 @@ function ProductPage(){
                 return;
             }
             const cart=JSON.parse(localStorage.getItem("cart"))|| [];
+            const cartProductId=selectedColor?`${product.id}-${selectedColor.name}`:product.id;
+            
             const foundProduct=cart.find((item)=>
-                item.id===product.id)
-            if(foundProduct){
-                foundProduct.count+=1;
+                item.cartId===cartProductId)
+            if (foundProduct) {
+
+              if (foundProduct.count >= product.stock) {
+        
+                alert("Товара больше нет на складе");
+        
+                return;
+        
+              }
+        
+              foundProduct.count += 1;
+        
+            } else {
+        
+              cart.push({
+        
+                ...product,
+        
+                cartId: cartProductId,
+        
+                image: activeImage,
+        
+                selectedColor: selectedColor?.name || "Не выбран",
+        
+                count: 1,
+        
+              });
+        
             }
-            else{
-                cart.push({
-                    ...product,count:1,
-                });
-            }
-            localStorage.setItem("cart",JSON.stringify(cart));
+        
+            localStorage.setItem("cart", JSON.stringify(cart));
+        
+            window.dispatchEvent(new Event("cartUpdated"));
             alert("Товар добавлен в корзину")
             
         }
@@ -60,16 +86,45 @@ function ProductPage(){
             <div className={styles.left}>
              
               <img className={styles.mainImage} src={activeImage} alt={product.title}/>
+              <div className={styles.thumbs}>
+                {product.images?.map((image)=>(
+                  <button key={image}
+                  className={`${styles.thumb} ${activeImage===image?styles.activeThumb : ""}`}
+                onClick={()=>setActiveImage(image)}>
+                  <img src={image} alt={product.title} />
+                </button>
+                ))}
+              </div>
             </div>
+
     
             <div className={styles.right}>
-              <p className={styles.cost}>{product.price}$</p>
+              <p className={styles.price}>
+                {product.price} $
+              </p>
               <p className={styles.description}>{product.description}</p>
               <p className={styles.stock}>Осталось: {product.stock} шт.</p>
           
               <button className={styles.add} onClick={addToCart}>
                 ДОБАВИТЬ В КОРЗИНУ
               </button>
+              <div className={styles.colorBlock}>
+                <h3>Цвет</h3>
+                  <div className={styles.colors}>
+                    {product.colors?.map((color)=>(
+                      <button key={color.name}
+                      title={color.name}
+                      className={`${styles.color} ${selectedColor?.name===color.name?styles.activeColor : ""}`}
+                      style={{backgroundColor:color.value}}
+                      onClick={()=>choseeColor(color)}/>
+                    ))}
+                  </div>
+              </div>
+              <div className={styles.info}>
+                    <h2>Характеристики</h2>
+                    <p>{product.characteristics}</p>
+                    <p>Осталось: {product.stock} шт.</p>
+              </div>
             </div>
           </div>
         </div>
